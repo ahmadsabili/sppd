@@ -14,7 +14,8 @@ $query = mysqli_query($koneksi, $sql);
 
 if ($query) {
     $pegawai_id = mysqli_insert_id($koneksi);
-    mysqli_query($koneksi, "INSERT INTO users (username, password, role, pegawai_id) VALUES ('$nip', '$nip', 'pegawai', '$pegawai_id')");
+    $password = password_hash($nip, PASSWORD_DEFAULT);
+    mysqli_query($koneksi, "INSERT INTO users (username, password, role, pegawai_id) VALUES ('$nip', '$password', 'user', '$pegawai_id')");
 
     echo "<script>alert('Data berhasil ditambahkan!');window.location='../../index.php?page=pegawai';</script>";
 } else {

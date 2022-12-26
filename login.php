@@ -26,22 +26,24 @@
 	<div class="wrapper wrapper-login">
 		<div class="container container-login animated fadeIn">
 			<h3 class="text-center">Aplikasi Surat Perintah Perjalanan Dinas (SPPD)</h3>
-			<div class="login-form">
-				<div class="form-group form-floating-label">
-					<input id="username" name="username" type="text" class="form-control input-border-bottom" required>
-					<label for="username" class="placeholder">Username</label>
-				</div>
-				<div class="form-group form-floating-label">
-					<input id="password" name="password" type="password" class="form-control input-border-bottom" required>
-					<label for="password" class="placeholder">Password</label>
-					<div class="show-password">
-						<i class="flaticon-interface"></i>
+			<form action="auth/login.php" method="POST">
+				<div class="login-form">
+					<div class="form-group form-floating-label">
+						<input id="username" name="username" type="text" class="form-control input-border-bottom" required>
+						<label for="username" class="placeholder">Username</label>
+					</div>
+					<div class="form-group form-floating-label">
+						<input id="password" name="password" type="password" class="form-control input-border-bottom" required>
+						<label for="password" class="placeholder">Password</label>
+						<div class="show-password">
+							<i class="flaticon-interface"></i>
+						</div>
+					</div>
+					<div class="form-action">
+						<button type="submit" class="btn btn-primary btn-rounded btn-login">Log In</button>
 					</div>
 				</div>
-				<div class="form-action">
-					<a href="#" class="btn btn-primary btn-rounded btn-login">Log In</a>
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 	<script src="assets/js/core/jquery.3.2.1.min.js"></script>
