@@ -79,7 +79,7 @@ $no_tabel = 1;
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="index.php?page=print-nppd&id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                                                    <a href="pages/nppd/print.php?id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
                                                     <a href="index.php?page=edit-nppd&id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                                     <a href="controllers/nppd/delete.php?id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
                                                 </td>
