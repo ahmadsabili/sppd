@@ -34,14 +34,14 @@
                         <li>
                             <div class="user-box">
                                 <div class="u-text">
-                                    <h4>Hizrian</h4>
-                                    <p class="text-muted">hello@example.com</p>
+                                    <h4><?= $_SESSION['nama'] ?></h4>
+                                    <p class="text-muted"><?= $_SESSION['username'] ?> (<?= $_SESSION['role'] ?>)</p>
                                 </div>
                             </div>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Ubah Password</a>
+                            <a class="dropdown-item" href="index.php?page=ubah-password">Ubah Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="auth/logout.php">Logout</a>
                         </li>

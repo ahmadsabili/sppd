@@ -26,6 +26,18 @@
 	<div class="wrapper wrapper-login">
 		<div class="container container-login animated fadeIn">
 			<h3 class="text-center">Aplikasi Surat Perintah Perjalanan Dinas (SPPD)</h3>
+			<?php
+			if (isset($_GET['pesan'])) {
+				if ($_GET['pesan'] == "username-password-salah") {
+					echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+					<strong>Username atau Password Salah!</strong>
+					<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+						<span aria-hidden='true'>&times;</span>
+					</button>
+				</div>";
+				}
+			}
+			?>
 			<form action="auth/login.php" method="POST">
 				<div class="login-form">
 					<div class="form-group form-floating-label">

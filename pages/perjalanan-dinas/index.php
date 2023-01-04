@@ -1,5 +1,11 @@
 <?php
-$perjalanan_dinas = mysqli_query($koneksi, "SELECT * FROM perjalanan_dinas JOIN pegawai ON perjalanan_dinas.pegawai_id = pegawai.id_pegawai JOIN spt ON perjalanan_dinas.spt_id = spt.id_spt");
+$id_pegawai = $_SESSION['pegawai_id'];
+
+if ($_SESSION['role'] == 'admin') {
+    $perjalanan_dinas = mysqli_query($koneksi, "SELECT * FROM perjalanan_dinas JOIN pegawai ON perjalanan_dinas.pegawai_id = pegawai.id_pegawai JOIN spt ON perjalanan_dinas.spt_id = spt.id_spt");
+} else {
+    $perjalanan_dinas = mysqli_query($koneksi, "SELECT * FROM perjalanan_dinas JOIN pegawai ON perjalanan_dinas.pegawai_id = pegawai.id_pegawai JOIN spt ON perjalanan_dinas.spt_id = spt.id_spt WHERE pegawai_id = '$id_pegawai'");
+}
 
 $no_tabel = 1;
 ?>

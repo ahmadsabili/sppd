@@ -1,5 +1,6 @@
 <?php
 include 'config/koneksi.php';
+include 'auth/session.php';
 ?>
 
 <!DOCTYPE html>
@@ -130,6 +131,12 @@ include 'config/koneksi.php';
 			if ($page == 'perjalanan-dinas') {
 				include 'pages/perjalanan-dinas/index.php';
 			}
+			if ($page == 'tambah-perjalanan-dinas') {
+				include 'pages/perjalanan-dinas/create.php';
+			}
+			if ($page == 'ubah-password') {
+				include 'pages/ubah-password/index.php';
+			}
 		}
 		else
 		{
@@ -207,5 +214,6 @@ include 'config/koneksi.php';
 </script>
 <script src="inc/js/edit-button.js"></script>
 <script src="inc/js/total.js"></script>
+<script src="inc/js/confirm-password.js"></script>
 </body>
 </html>

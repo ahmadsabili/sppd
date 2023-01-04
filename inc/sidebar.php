@@ -10,6 +10,21 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <?php if ($_SESSION['role'] == 'user') : ?>
+                <li class="nav-item <?= $_GET['page'] == 'spt' ? 'active' : '' ?>">
+                    <a href="index.php?page=spt">
+                        <i class="fas fa-envelope"></i>
+                        <p>SPT</p>
+                    </a>
+                </li>
+                <li class="nav-item <?= $_GET['page'] == 'perjalanan-dinas' ? 'active' : '' ?>">
+                    <a href="index.php?page=perjalanan-dinas">
+                        <i class="fas fa-plane"></i>
+                        <p>Perjalanan Dinas</p>
+                    </a>
+                </li>
+                <?php endif; ?>
+                <?php if ($_SESSION['role'] == 'admin') : ?>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -143,6 +158,7 @@
                         </ul>
                     </div>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

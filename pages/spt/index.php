@@ -1,7 +1,12 @@
 <?php
-$spt = mysqli_query($koneksi, "SELECT * FROM spt JOIN nppd ON spt.nppd_id = nppd.id_nppd");
-
 $no_tabel = 1;
+$pegawai_id = $_SESSION['pegawai_id'];
+
+if ($_SESSION['role'] == 'admin') {
+    $spt = mysqli_query($koneksi, "SELECT * FROM spt JOIN nppd ON spt.nppd_id = nppd.id_nppd");
+} else {
+    $spt = mysqli_query($koneksi, "SELECT * FROM spt JOIN nppd ON spt.nppd_id = nppd.id_nppd WHERE pegawai_id = '$pegawai_id'");
+}
 ?>
 
 <div class="main-panel">
@@ -19,18 +24,25 @@ $no_tabel = 1;
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <?php if ($_SESSION['role'] == 'admin') : ?>
                                             <th>Nama</th>
                                             <th>Golongan</th>
+                                            <?php endif; ?>
                                             <th>No SPT</th>
                                             <th>Tugas</th>
-                                            <th>SPPD</th>
-                                            <th>Aksi</th>
+                                            <th>Tanggal Pergi</th>
+                                            <th>Tanggal Kembali</th>
+                                            <th>Lama Perjalanan</th>
+                                            <th>
+                                                <?= $_SESSION['role'] == 'admin' ? 'Aksi' : 'Laporan' ?>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($spt as $data) : ?>
                                             <tr>
                                                 <td><?= $no_tabel++ ?></td>
+                                                <?php if ($_SESSION['role'] == 'admin') : ?>
                                                 <td>
                                                     <?php
                                                     $pegawai_id = $data['pegawai_id'];
@@ -51,47 +63,41 @@ $no_tabel = 1;
                                                     }
                                                     ?>
                                                 </td>
+                                                <?php endif; ?>
                                                 <td>
                                                     <?php
                                                     $cek_spt = mysqli_query($koneksi, "SELECT * FROM spt WHERE nppd_id = '$data[id_nppd]'");
                                                     if (mysqli_num_rows($cek_spt) > 0) {
                                                         $spt = mysqli_fetch_assoc($cek_spt);
                                                         if ($spt['no_spt'] == null) {
-                                                            echo 'SPT belum ditentukan';
+                                                            echo '-';
                                                         } else {
                                                             echo $spt['no_spt'];
                                                         }
                                                     } else {
-                                                        echo 'SPT belum ditentukan';
+                                                        echo '-';
                                                     }
                                                     ?>
                                                 </td>
                                                 <td><?= $data['tujuan_perjalanan'] ?></td>
+                                                <td><?= $data['tanggal_pergi'] ?></td>
+                                                <td><?= $data['tanggal_pergi'] ?></td>
+                                                <td><?= $data['lama_perjalanan'] ?></td>
                                                 <td>
-                                                    <?php
-                                                    $spt = mysqli_query($koneksi, "SELECT * FROM spt WHERE nppd_id = '$data[id_nppd]'");
-
-                                                    if (mysqli_num_rows($spt) > 0) {
-                                                        $spt = mysqli_fetch_assoc($spt);
-                                                        $cek_sppd = mysqli_query($koneksi, "SELECT * FROM sppd WHERE spt_id = '$spt[id_spt]'");
-                                                        if (mysqli_num_rows($cek_sppd) > 0) {
-                                                            $sppd = mysqli_fetch_assoc($cek_sppd);
-                                                            echo '<a href="index.php?page=edit-sppd&id_sppd=' . $sppd['id_sppd'] . '" class="btn btn-success btn-sm"><i class="fas fa-check"></i></a>';
-                                                        } else {
-                                                            echo '<a href="index.php?page=tambah-sppd&id_spt=' . $spt['id_spt'] . '" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>';
-                                                        }
-                                                    } else {
-                                                        echo 'Tentukan SPT terlebih dahulu';
-                                                    }
-
-                                                    
-                                                    
-                                                    ?>
-                                                </td>
-                                                <td>
+                                                    <?php if ($_SESSION['role'] == 'admin') : ?>
                                                     <a href="index.php?page=print-spt&id_spt=<?= $data['id_spt'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
                                                     <a href="index.php?page=edit-spt&id_spt=<?= $data['id_spt'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <a href="controllers/spt/delete.php?id_spt=<?= $data['id_spt'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
+                                                    <?php endif; ?>
+
+                                                    <?php
+                                                    $cek_perjalanan_dinas = mysqli_query($koneksi, "SELECT * FROM perjalanan_dinas WHERE spt_id = '$data[id_spt]'");
+                                                    if (mysqli_num_rows($cek_perjalanan_dinas) > 0) {
+                                                        $perjalanan_dinas = mysqli_fetch_assoc($cek_perjalanan_dinas);
+                                                        echo '<a href="index.php?page=perjalanan-dinas&id_perjalanan_dinas=' . $perjalanan_dinas['id_perjalanan_dinas'] . '" class="btn btn-success btn-sm"><i class="fas fa-check"></i></a>';
+                                                    } else {
+                                                        echo '<a href="index.php?page=tambah-perjalanan-dinas&id_spt=' . $data['id_spt'] . '" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i></a>';
+                                                    }
+                                                    ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
