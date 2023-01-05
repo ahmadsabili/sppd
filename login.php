@@ -25,6 +25,9 @@
 <body class="login">
 	<div class="wrapper wrapper-login">
 		<div class="container container-login animated fadeIn">
+			<div class="text-center mb-3">
+				<img src="assets/img/logo.png" alt="" width="50px">
+			</div>
 			<h3 class="text-center">Aplikasi Surat Perintah Perjalanan Dinas (SPPD)</h3>
 			<?php
 			if (isset($_GET['pesan'])) {

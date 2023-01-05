@@ -3,7 +3,8 @@
     <div class="logo-header">
         
         <a href="index.php" class="logo">
-            <img src="assets/img/logoazzara.svg" alt="navbar brand" class="navbar-brand">
+            <img src="assets/img/logo.png" width="25px" alt="navbar brand" class="navbar-brand">
+            <span class="text-white ml-2 font-weight-bold">BPKAD</span>
         </a>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
