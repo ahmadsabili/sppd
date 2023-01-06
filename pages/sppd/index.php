@@ -64,8 +64,8 @@ $no_tabel = 1;
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="index.php?page=print-nppd&id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
-                                                    <a href="controllers/nppd/delete.php?id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
+                                                    <a href="index.php?page=print-sppd&id_sppd=<?= $data['id_sppd'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                                                    <a href="controllers/sppd/delete.php?id_sppd=<?= $data['id_sppd'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

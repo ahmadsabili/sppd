@@ -44,9 +44,9 @@ $no_tabel = 1;
                                                 <td><?= $data['penginapan'] ?></td>
                                                 <td><?= $data['transportasi'] ?></td>
                                                 <td>
-                                                    <a href="index.php?page=print-nppd&id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
-                                                    <a href="index.php?page=edit-nppd&id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <a href="controllers/nppd/delete.php?id_nppd=<?= $data['id_nppd'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
+                                                    <a href="index.php?page=print-biaya-perjalanan&id_biaya_perjalanan=<?= $data['id_biaya_perjalanan'] ?>" class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
+                                                    <a href="index.php?page=edit-biaya-perjalanan&id_biaya_perjalanan=<?= $data['id_biaya_perjalanan'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <a href="controllers/biaya-perjalanan/delete.php?id_biaya_perjalanan=<?= $data['id_biaya_perjalanan'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

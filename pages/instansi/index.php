@@ -34,31 +34,31 @@ $instansi = mysqli_fetch_assoc($query);
                                     <input type="text" class="form-control" id="kota" name="kota" required value="<?= $instansi['kota'] ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="kode_pos">kode_pos</label>
+                                    <label for="kode_pos">Kode Pos</label>
                                     <input type="text" class="form-control" id="kode_pos" name="kode_pos" required value="<?= $instansi['kode_pos'] ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="no_telp">no_telp</label>
+                                    <label for="no_telp">No Telp</label>
                                     <input type="text" class="form-control" id="no_telp" name="no_telp" required value="<?= $instansi['no_telp'] ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="fax">fax</label>
+                                    <label for="fax">Fax</label>
                                     <input type="text" class="form-control" id="fax" name="fax" required value="<?= $instansi['fax'] ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pimpinan_tertinggi">pimpinan_tertinggi</label>
+                                    <label for="pimpinan_tertinggi">Pimpinan Tertinggi</label>
                                     <input type="text" class="form-control" id="pimpinan_tertinggi" name="pimpinan_tertinggi" required value="<?= $instansi['pimpinan_tertinggi'] ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama_pimpinan_tertinggi">nama_pimpinan_tertinggi</label>
+                                    <label for="nama_pimpinan_tertinggi">Nama Pimpinan Tertinggi</label>
                                     <input type="text" class="form-control" id="nama_pimpinan_tertinggi" name="nama_pimpinan_tertinggi" required value="<?= $instansi['nama_pimpinan_tertinggi'] ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nip_pimpinan_tertinggi">nip_pimpinan_tertinggi</label>
+                                    <label for="nip_pimpinan_tertinggi">NIP Pimpinan Tertinggi</label>
                                     <input type="text" class="form-control" id="nip_pimpinan_tertinggi" name="nip_pimpinan_tertinggi" required value="<?= $instansi['nip_pimpinan_tertinggi'] ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jabatan_pimpinan_tertinggi">jabatan_pimpinan_tertinggi</label>
+                                    <label for="jabatan_pimpinan_tertinggi">Jabatan Pimpinan Tertinggi</label>
                                     <input type="text" class="form-control" id="jabatan_pimpinan_tertinggi" name="jabatan_pimpinan_tertinggi" required value="<?= $instansi['jabatan_pimpinan_tertinggi'] ?>" readonly>
                                 </div>
                                 <div class="card-action">
