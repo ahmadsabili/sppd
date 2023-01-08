@@ -116,7 +116,8 @@ $html .= '<table>
         TANGGAL: '. date("d-m-Y") .' <br>
         <b>
         KUASA PENGGUNA ANGGARAN <br>
-        '. $instansi['nama_instansi'] .'
+        '. $instansi['nama_instansi'] .' <br>
+        PEMERINTAH PROVINSI SUMATERA SELATAN
         </b>
     </p>
 </div>
