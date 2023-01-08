@@ -14,34 +14,66 @@ $mpdf = new \Mpdf\Mpdf([
     'default_font_size' => 11,
     'margin_left' => 15,
 ]);
-$mpdf->SetTitle('Nota Permintaan Perjalanan Dinas');
+
+$mpdf->SetTitle('Surat Perintah Tugas');
 
 $now = date('YmdHis');
 $no = 1;
 
 // Fetching data from the database
-$id_nppd = $_GET['id_nppd'];
+$id_spt = $_GET['id_spt'];
+$spt = mysqli_query($koneksi, "SELECT * FROM spt WHERE id_spt = '$id_spt'");
+$spt = mysqli_fetch_assoc($spt);
+
+$id_nppd = $spt['nppd_id'];
 
 $query = mysqli_query($koneksi, "SELECT * FROM nppd JOIN kota ON nppd.kota_id = kota.id_kota JOIN kendaraan ON nppd.kendaraan_id = kendaraan.id_kendaraan WHERE id_nppd = '$id_nppd'");
 $nppd = mysqli_fetch_assoc($query);
 
 $pegawai_id = $nppd['pegawai_id'];
-
 $pegawai = mysqli_query($koneksi, "SELECT * FROM pegawai JOIN golongan ON pegawai.golongan_id = golongan.id_golongan WHERE id_pegawai IN ($pegawai_id)");
 $pegawai = mysqli_fetch_all($pegawai, MYSQLI_ASSOC);
 
 $instansi = mysqli_query($koneksi, "SELECT * FROM profil_instansi");
 $instansi = mysqli_fetch_assoc($instansi);
 
-// Write some HTML code:
 
-$html = '<style>
-.float-right {
-    float: right;
-}
-</style>
-<h3 style="text-align: center;"><u>NOTA PERMINTAAN PERJALANAN DINAS</u></h3>
-<table>';
+// Write some HTML code:
+$html = '
+<table style="border-bottom: 3px solid; margin-left: 5px">
+    <tr>
+        <td style="width: 20%; text-align: center;">
+            <img src="../../../assets/img/logo.png" style="width: 55px;">
+        </td>
+        <td style="width: 55%; text-align: center;">
+            <p style="font-size: 14px">PEMERINTAH PROVINSI SUMATERA SELATAN</p>
+            <p style="font-size: 16px; font-weight: bold">' . $instansi['nama_instansi'] .'</p>
+            <p style="font-size: 12px">' . $instansi['alamat'] . '</p>
+            <p style="font-size: 12px">Telp. ' . $instansi['no_telp'] . ' Fax. ' . $instansi['fax'] . ' Kode Pos '. $instansi['kode_pos'] .' </p>
+        </td>
+        <td style="width: 10%;"></td>
+    </tr>
+</table>
+
+<p style="text-align: center; font-size: 14px; margin-top: 10px">
+    <u>SURAT PERINTAH TUGAS</u> <br>
+    Nomor : ' . $spt['no_spt'] . '
+</p>
+<table>
+    <tr>
+        <td width="25%">Menimbang</td>
+        <td>:</td>
+        <td>Bahwa untuk kelancaran dalam '. $nppd['tujuan_perjalanan'] .';</td>
+    </tr>
+    <tr>
+        <td>Dasar</td>
+        <td>:</td>
+        <td>'. $spt['dasar_hukum'] .'</td>
+    </tr>
+</table>
+<p style="text-align: center; font-weight: bold">MEMERINTAHKAN</p>
+<table>
+';
 
 foreach ($pegawai as $p) {
     $html .= '<tr>
@@ -70,54 +102,29 @@ foreach ($pegawai as $p) {
     </tr>';
 }
 
-$html .= '</table>';
-$html .= '<p>Mohon diberikan Surat Perintah Tugas dan Surat Perintah Perjalanan Dinas</p>';
-$html .= '<table>
+$html .= '
+</table>
+<br>
+<table>
     <tr>
-        <td>1.</td>
-        <td>Tujuan</td>
-        <td style="padding-left: 10px">:</td>
-        <td><b>'.$nppd['nama_kota'].'</b></td>
-    </tr>
-    <tr>
-        <td>2.</td>
-        <td>Maksud Perjalanan Dinas</td>
-        <td style="padding-left: 10px;">:</td>
-        <td>'.$nppd['tujuan_perjalanan'].'</td>
-    </tr>
-    <tr>
-        <td>3.</td>
-        <td>Kendaraan yang Digunakan</td>
-        <td style="padding-left: 10px;">:</td>
-        <td>'. $nppd['nama_kendaraan'] . '</td>
-    </tr>
-    <tr>
-        <td>4.</td>
-        <td>Lama Perjalanan</td>
-        <td style="padding-left: 10px;">:</td>
-        <td>'.$nppd['lama_perjalanan'].' hari</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>a. Tanggal Berangkat</td>
-        <td style="padding-left: 10px;">:</td>
-        <td>'. date("d-m-Y", strtotime($nppd['tanggal_pergi'])) .'</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>b. Tanggal Kembali</td>
-        <td style="padding-left: 10px;">:</td>
-        <td>'. date("d-m-Y", strtotime($nppd['tanggal_pulang'])) .'</td>
+        <td>Untuk</td>
+        <td style="padding-left: 50px">:</td>
+        <td>'. $nppd['tujuan_perjalanan'] .'</td>
     </tr>
 </table>
+<br>
 <div style="text-align: right">
     <p>
         DIKELUARKAN DI: '. $instansi['kota'] .' <br>
-        TANGGAL: '. date("d-m-Y") .' <br>
+        PADA TANGGAL: '. date("d-m-Y") .' <br>
         <b>
-        KUASA PENGGUNA ANGGARAN <br>
+        a.n '. $instansi['pimpinan_tertinggi'] .' <br>
         '. $instansi['nama_instansi'] .'
         </b>
+        <br><br><br><br><br><br>
+        <u><b>'. $instansi['nama_pimpinan_tertinggi'] .'</b></u><br>
+        <b>'. $instansi['jabatan_pimpinan_tertinggi'] .'</b> <br>
+        <b> NIP.'. $instansi['nip_pimpinan_tertinggi'] .'</b>
     </p>
 </div>
 ';

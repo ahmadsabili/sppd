@@ -136,7 +136,7 @@ $pegawai_id = $_SESSION['pegawai_id'];
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="index.php?page=print-spt&id_spt=<?= $data['id_spt'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                                                    <a href="pages/spt/print.php?id_spt=<?= $data['id_spt'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
                                                     <a href="index.php?page=edit-spt&id_spt=<?= $data['id_spt'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                                     <a href="index.php?page=hapus-spt&id_spt=<?= $data['id_spt'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 </td>
