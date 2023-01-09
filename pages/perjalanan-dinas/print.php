@@ -6,7 +6,41 @@ require_once '../../vendor/autoload.php';
 require_once '../../config/koneksi.php';
 require_once '../../config/timezone.php';
 setlocale(LC_ALL, 'id_ID.ISO-8859-1');
-$formatter = new IntlDateFormatter('id_ID', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+
+$daysOfWeek = array(
+  'Sunday' => 'Minggu',
+  'Monday' => 'Senin',
+  'Tuesday' => 'Selasa',
+  'Wednesday' => 'Rabu',
+  'Thursday' => 'Kamis',
+  'Friday' => 'Jumat',
+  'Saturday' => 'Sabtu'
+);
+
+$months = array(
+  'January' => 'Januari',
+  'February' => 'Februari',
+  'March' => 'Maret',
+  'April' => 'April',
+  'May' => 'Mei',
+  'June' => 'Juni',
+  'July' => 'Juli',
+  'August' => 'Agustus',
+  'September' => 'September',
+  'October' => 'Oktober',
+  'November' => 'November',
+  'December' => 'Desember'
+);
+
+$date = new DateTime();
+$tanggal = $date->format('d');
+$month = $date->format('F');
+$year = $date->format('Y');
+$formattedMonth = $months[$month];
+$todayMonth = $months[$month];
+
+$today = date('l');
+$today = $daysOfWeek[$today];
 
 // Create an instance of the class:
 $mpdf = new \Mpdf\Mpdf([
@@ -45,13 +79,25 @@ $instansi = mysqli_query($koneksi, "SELECT * FROM profil_instansi");
 $instansi = mysqli_fetch_assoc($instansi);
 
 
+$tanggal_pergi = new DateTime($pd['tanggal_pergi']);
+$tanggal_tanggal_pergi = $tanggal_pergi->format('d');
+$tahun_tanggal_pergi = $tanggal_pergi->format('Y');
+$bulan_tanggal_pergi = $tanggal_pergi->format('F');
+$formatted_bulan_tanggal_pergi = $months[$bulan_tanggal_pergi];
+
+$tanggal_pulang = new DateTime($pd['tanggal_pulang']);
+$tanggal_tanggal_pulang = $tanggal_pulang->format('d');
+$tahun_tanggal_pulang = $tanggal_pulang->format('Y');
+$bulan_tanggal_pulang = $tanggal_pulang->format('F');
+$formatted_bulan_tanggal_pulang = $months[$bulan_tanggal_pulang];
+
 // Write some HTML code:
 $html = '
 <p style="text-align: center; font-size: 16px; margin-top: 5px">
     <b><u>LAPORAN PERJALANAN DINAS</u></b><br>
 </p>
 <p>
-    Pada hari ini '. $formatter->format(time()) . ', saya yang bertanda tangan dibawah ini
+    Pada hari ini '. $today . ', '.$tanggal .' '. $formattedMonth . ' '. $year .' saya yang bertanda tangan dibawah ini
 </p>
 <table>
     <tr>
@@ -84,7 +130,7 @@ $tanggal_pulang = DateTime::createFromFormat('Y-m-d', $pd['tanggal_pulang']);
 
 $html .= '
 <p>
-    Telah melaksanakan perjalanan dinas dalam rangka '. $pd['tujuan_perjalanan'] .', berdasarkan Surat Perintah Tugas nomor: '. $pd['no_spt'] .', dari tanggal '. $formatter->format($tanggal_pergi) .' sampai tanggal '. $formatter->format($tanggal_pulang) .' di '. $pd['nama_kota'] .'.
+    Telah melaksanakan perjalanan dinas dalam rangka '. $pd['tujuan_perjalanan'] .', berdasarkan Surat Perintah Tugas nomor: '. $pd['no_spt'] .', dari tanggal '. $tanggal_tanggal_pergi .' '. $formatted_bulan_tanggal_pergi .' '. $tahun_tanggal_pergi .' sampai tanggal '. $tanggal_tanggal_pulang.' '. $formatted_bulan_tanggal_pulang.' '. $tahun_tanggal_pulang.' di '. $pd['nama_kota'] .'.
 </p>
 <p>
     Adapun hasil perjalanan dinas tersebut adalah sebagai berikut: '. $pd['hasil'] .'.
@@ -97,7 +143,7 @@ $html .= '
 $html .= '
 <div style="text-align: right">
     <p>
-        Palembang, '. $formatter->format(time()) .' <br>
+        Palembang, '.$tanggal .' '. $formattedMonth . ' '. $year .' <br>
         Yang membuat laporan, <br>
         <br><br><br><br><br>
         <u><b>'. $pd['nama'] .'</b></u><br>
