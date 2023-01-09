@@ -53,7 +53,7 @@ $no_tabel = 1;
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="index.php?page=print-kuitansi&id_kuitansi=<?= $data['id_kuitansi'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                                                    <a href="pages/kuitansi/print.php?id_kuitansi=<?= $data['id_kuitansi'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
                                                     <a href="controllers/kuitansi/delete.php?id_kuitansi=<?= $data['id_kuitansi'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>

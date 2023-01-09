@@ -1,19 +1,25 @@
 <?php
 $id_sppd = $_GET['id_sppd'];
-$query = mysqli_query($koneksi, "SELECT sppd.*, pegawai.*, nppd.lama_perjalanan
+$sppd = mysqli_query($koneksi, "SELECT sppd.*, pegawai.*, nppd.lama_perjalanan, nppd.kota_id
 FROM sppd
-INNER JOIN pegawai ON sppd.pegawai_id = pegawai.id_pegawai
-INNER JOIN spt ON sppd.spt_id = spt.id_spt
-LEFT JOIN nppd ON spt.nppd_id = nppd.id_nppd
+JOIN pegawai ON sppd.pegawai_id = pegawai.id_pegawai
+JOIN spt ON sppd.spt_id = spt.id_spt
+JOIN nppd ON spt.nppd_id = nppd.id_nppd
 WHERE id_sppd = '$id_sppd'");
-$sppd = mysqli_fetch_assoc($query);
+$sppd = mysqli_fetch_assoc($sppd);
 
 // ambil data golongan
-$golongan = mysqli_query($koneksi, "SELECT * FROM golongan WHERE id_golongan = '$sppd[golongan_id]'");
+$id_golongan = $sppd['golongan_id'];
+$golongan = mysqli_query($koneksi, "SELECT * FROM golongan WHERE id_golongan = '$id_golongan'");
 $golongan = mysqli_fetch_assoc($golongan);
 
-// ambil data biaya perjalanan berdasarkan golongan
-$biaya_perjalanan = mysqli_query($koneksi, "SELECT * FROM biaya_perjalanan WHERE golongan_id = '$golongan[id_golongan]'");
+//ambil data kota
+$id_kota = $sppd['kota_id'];
+$kota = mysqli_query($koneksi, "SELECT * FROM kota WHERE id_kota = '$id_kota'");
+$kota = mysqli_fetch_assoc($kota);
+
+// ambil data biaya perjalanan berdasarkan golongan dan kota
+$biaya_perjalanan = mysqli_query($koneksi, "SELECT * FROM biaya_perjalanan WHERE golongan_id = '$id_golongan' AND kota_id = '$id_kota'");
 $biaya_perjalanan = mysqli_fetch_assoc($biaya_perjalanan);
 ?>
 
@@ -29,6 +35,7 @@ $biaya_perjalanan = mysqli_fetch_assoc($biaya_perjalanan);
                         <div class="card-body">
                             <form action="controllers/kuitansi/store.php" method="POST">
                                 <input type="hidden" name="sppd_id" value="<?= $sppd['id_sppd'] ?>">
+                                <input type="hidden" name="biaya_perjalanan_id" value="<?= $biaya_perjalanan['id_biaya_perjalanan'] ?>">
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
                                     <input type="text" class="form-control" id="nama" name="nama" readonly value="<?= $sppd['nama'] ?>">
@@ -39,7 +46,7 @@ $biaya_perjalanan = mysqli_fetch_assoc($biaya_perjalanan);
                                 </div>
                                 <div class="form-group">
                                     <label for="kota_id">Tujuan</label>
-                                    <input type="text" class="form-control" id="kota_id" name="kota_id" readonly value="<?= $sppd['nama'] ?>">
+                                    <input type="text" class="form-control" id="kota_id" name="kota_id" readonly value="<?= $kota['nama_kota'] ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="lama_perjalanan">Lama Perjalanan (hari)</label>
