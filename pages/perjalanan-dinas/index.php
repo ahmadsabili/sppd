@@ -41,6 +41,7 @@ $no_tabel = 1;
                                                 <td><?= $data['hasil'] ?></td>
                                                 <td><?= $data['tanggal'] ?></td>
                                                 <td>
+                                                    <a href="pages/perjalanan-dinas/print.php?id_perjalanan_dinas=<?= $data['id_perjalanan_dinas'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
                                                     <a href="controllers/perjalanan-dinas/delete.php?id_perjalanan_dinas=<?= $data['id_perjalanan_dinas'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data?')"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
