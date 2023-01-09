@@ -5,6 +5,8 @@ require_once '../../vendor/autoload.php';
 // Require config
 require_once '../../config/koneksi.php';
 require_once '../../config/timezone.php';
+setlocale(LC_ALL, 'id_ID.ISO-8859-1');
+$formatter = new IntlDateFormatter('id_ID', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
 
 // Create an instance of the class:
 $mpdf = new \Mpdf\Mpdf([
@@ -42,7 +44,8 @@ $pegawai = mysqli_fetch_all($pegawai, MYSQLI_ASSOC);
 $instansi = mysqli_query($koneksi, "SELECT * FROM profil_instansi");
 $instansi = mysqli_fetch_assoc($instansi);
 
-
+$tanggal_pergi = DateTime::createFromFormat('Y-m-d', $nppd['tanggal_pergi']);
+$tanggal_pulang = DateTime::createFromFormat('Y-m-d', $nppd['tanggal_pulang']);
 // Write some HTML code:
 $html = '
 <table style="border-bottom: 3px solid; margin-left: 5px">
@@ -125,8 +128,8 @@ $html = '
         </td>
         <td>
             '. $nppd['lama_perjalanan'] .' Hari <br>
-            '. date("d-m-Y", strtotime($nppd['tanggal_pergi'])) .' <br>
-            '. date("d-m-Y", strtotime($nppd['tanggal_pulang'])) .'
+            '. $formatter->format($tanggal_pergi) .' <br>
+            '. $formatter->format($tanggal_pulang) .'
         </td>
     </tr>
     <tr>
