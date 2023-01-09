@@ -123,11 +123,6 @@ $html = '
 </table>
 ';
 
-$formatter = new IntlDateFormatter('id_ID', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
-
-$tanggal_pergi = DateTime::createFromFormat('Y-m-d', $pd['tanggal_pergi']);
-$tanggal_pulang = DateTime::createFromFormat('Y-m-d', $pd['tanggal_pulang']);
-
 $html .= '
 <p>
     Telah melaksanakan perjalanan dinas dalam rangka '. $pd['tujuan_perjalanan'] .', berdasarkan Surat Perintah Tugas nomor: '. $pd['no_spt'] .', dari tanggal '. $tanggal_tanggal_pergi .' '. $formatted_bulan_tanggal_pergi .' '. $tahun_tanggal_pergi .' sampai tanggal '. $tanggal_tanggal_pulang.' '. $formatted_bulan_tanggal_pulang.' '. $tahun_tanggal_pulang.' di '. $pd['nama_kota'] .'.
