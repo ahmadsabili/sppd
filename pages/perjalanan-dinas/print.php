@@ -17,7 +17,7 @@ $mpdf = new \Mpdf\Mpdf([
     'margin_left' => 15,
 ]);
 
-$mpdf->SetTitle('Surat Perintah Perjalanan Dinas');
+$mpdf->SetTitle('Laporan Perjalanan Dinas');
 
 $now = date('YmdHis');
 $no = 1;
