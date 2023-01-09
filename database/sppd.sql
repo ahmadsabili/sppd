@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 04 Jan 2023 pada 14.17
+-- Waktu pembuatan: 09 Jan 2023 pada 09.03
 -- Versi server: 10.6.9-MariaDB-log
 -- Versi PHP: 7.4.33
 
@@ -42,8 +42,9 @@ CREATE TABLE `biaya_perjalanan` (
 
 INSERT INTO `biaya_perjalanan` (`id_biaya_perjalanan`, `kota_id`, `golongan_id`, `lumpsum`, `penginapan`, `transportasi`) VALUES
 (1, 1, 1, 150000, 200000, 100000),
-(2, 2, 2, 200000, 300000, 400000),
-(3, 2, 3, 230000, 100000, 200000);
+(2, 2, 1, 200000, 300000, 400000),
+(4, 3, 1, 900000, 800000, 7000000),
+(6, 2, 2, 700000, 450000, 200000);
 
 -- --------------------------------------------------------
 
@@ -115,12 +116,21 @@ INSERT INTO `kota` (`id_kota`, `nama_kota`) VALUES
 CREATE TABLE `kuitansi` (
   `id_kuitansi` int(11) NOT NULL,
   `sppd_id` int(11) NOT NULL,
+  `biaya_perjalanan_id` int(11) NOT NULL,
   `diterima_dari` varchar(255) NOT NULL,
   `untuk_pembayaran` varchar(255) NOT NULL,
   `total_lumpsum` int(11) NOT NULL,
   `total_penginapan` int(11) NOT NULL,
   `total_transportasi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kuitansi`
+--
+
+INSERT INTO `kuitansi` (`id_kuitansi`, `sppd_id`, `biaya_perjalanan_id`, `diterima_dari`, `untuk_pembayaran`, `total_lumpsum`, `total_penginapan`, `total_transportasi`) VALUES
+(6, 9, 2, '-', 'biaya perjalanan', 600000, 900000, 400000),
+(7, 10, 5, '-', 'dinas', 1500000, 1350000, 200000);
 
 -- --------------------------------------------------------
 
@@ -219,7 +229,7 @@ CREATE TABLE `profil_instansi` (
 --
 
 INSERT INTO `profil_instansi` (`id_profil_instansi`, `nama_instansi`, `keterangan`, `alamat`, `kota`, `kode_pos`, `no_telp`, `fax`, `pimpinan_tertinggi`, `nama_pimpinan_tertinggi`, `nip_pimpinan_tertinggi`, `jabatan_pimpinan_tertinggi`) VALUES
-(1, 'BNN PALEMBANG', 'KANTOR PUSAT', 'JL BUKIT BESAR', 'PALEMBANG', '27362', '0819381', '2323131', 'KEPALA', 'ARIFIN', '2873287819793871983', 'PEMBINA');
+(1, 'BADAN PENGELOLA KEUANGAN DAN ASET DAERAH', 'KANTOR PUSAT', 'JL BUKIT BESAR, PALEMBANG, SUMATERA SELATAN', 'PALEMBANG', '27362', '0819381', '2323131', 'KEPALA', 'ARIFIN', '2873287819793871983', 'PEMBINA UTAMA MADYA');
 
 -- --------------------------------------------------------
 
@@ -237,6 +247,14 @@ CREATE TABLE `sppd` (
   `mata_anggaran` varchar(255) NOT NULL,
   `keterangan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `sppd`
+--
+
+INSERT INTO `sppd` (`id_sppd`, `spt_id`, `pegawai_id`, `no_sppd`, `pejabat_pemberi_perintah`, `instansi`, `mata_anggaran`, `keterangan`) VALUES
+(9, 6, 1, 'adhgdh/1383', 'Cao Cao', 'Kominfo', '2021 PLUS', '-'),
+(10, 6, 2, 'adhgdh/1383', 'Cao Cao', 'Kominfo', '2021 PLUS', '-');
 
 -- --------------------------------------------------------
 
@@ -340,7 +358,8 @@ ALTER TABLE `kota`
 --
 ALTER TABLE `kuitansi`
   ADD PRIMARY KEY (`id_kuitansi`),
-  ADD KEY `sppd_id` (`sppd_id`);
+  ADD KEY `sppd_id` (`sppd_id`),
+  ADD KEY `biaya_perjalanan_id` (`biaya_perjalanan_id`);
 
 --
 -- Indeks untuk tabel `nppd`
@@ -409,7 +428,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `biaya_perjalanan`
 --
 ALTER TABLE `biaya_perjalanan`
-  MODIFY `id_biaya_perjalanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_biaya_perjalanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `golongan`
@@ -433,7 +452,7 @@ ALTER TABLE `kota`
 -- AUTO_INCREMENT untuk tabel `kuitansi`
 --
 ALTER TABLE `kuitansi`
-  MODIFY `id_kuitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kuitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `nppd`
@@ -463,7 +482,7 @@ ALTER TABLE `profil_instansi`
 -- AUTO_INCREMENT untuk tabel `sppd`
 --
 ALTER TABLE `sppd`
-  MODIFY `id_sppd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_sppd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `spt`
