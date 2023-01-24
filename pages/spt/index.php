@@ -94,7 +94,7 @@ $pegawai_id = $_SESSION['pegawai_id'];
                                                     $pegawai = mysqli_query($koneksi, "SELECT * FROM pegawai WHERE id_pegawai IN ($pegawai_id)");
                                                     $no = 1;
                                                     foreach ($pegawai as $data_pegawai) {
-                                                        echo $no++ . ') ' . $data_pegawai['nama'] . "<br>";
+                                                        echo $data_pegawai['nama'] . "<br>";
                                                     }
                                                     ?>
                                                 </td>

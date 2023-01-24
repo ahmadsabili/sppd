@@ -11,7 +11,7 @@ setlocale(LC_ALL, 'id_ID.ISO-8859-1');
 $mpdf = new \Mpdf\Mpdf([
     'mode' => 'utf-8',
     'format' => 'A4',
-    'default_font' => 'times',
+    'default_font' => 'Arial',
     'default_font_size' => 11,
     'margin_left' => 15,
 ]);
@@ -82,16 +82,18 @@ $formatted_bulan_tanggal_pulang = $months[$bulan_tanggal_pulang];
 
 // Write some HTML code:
 $html = '
+
 <table style="border-bottom: 3px solid; margin-left: 5px">
     <tr>
         <td style="width: 20%; text-align: center;">
             <img src="../../../assets/img/logo.png" style="width: 55px;">
         </td>
-        <td style="width: 55%; text-align: center;">
-            <p style="font-size: 14px">PEMERINTAH PROVINSI SUMATERA SELATAN</p>
-            <p style="font-size: 16px; font-weight: bold">' . $instansi['nama_instansi'] .'</p>
-            <p style="font-size: 12px">' . $instansi['alamat'] . '</p>
-            <p style="font-size: 12px">Telp. ' . $instansi['no_telp'] . ' Fax. ' . $instansi['fax'] . ' Kode Pos '. $instansi['kode_pos'] .' </p>
+        <td style="width: 70%; text-align: center;">
+            <p style="font-size: 16px">PEMERINTAH PROVINSI SUMATERA SELATAN</p>
+            <p style="font-size: 18px; font-weight: bold">' . $instansi['nama_instansi'] .'</p>
+            <p style="font-size: 12px; font-weight: bold">' . $instansi['alamat'] . '</p>
+            <p style="font-size: 12px">Telepon (0711) ' . $instansi['no_telp'] . ', No. Fax. (0711) ' . $instansi['fax'] . ' Kode Pos '. $instansi['kode_pos'] .' </p>
+            <p style="font-size: 12px">Email: <u>bpkad@sumselprov.go.id</u> &nbsp; Website: <u>www.sumselprov.go.id</u></p>
         </td>
         <td style="width: 10%;"></td>
     </tr>
@@ -195,18 +197,15 @@ $html = '
 ';
 
 $html .= '
-<div style="text-align: right">
+<div style="padding-left: 65%">
     <p>
-        DIKELUARKAN DI: '. $instansi['kota'] .' <br>
-        PADA TANGGAL: '. date("d-m-Y") .' <br>
-        <b>
-        a.n '. $instansi['pimpinan_tertinggi'] .' <br>
-        '. $instansi['nama_instansi'] .'
-        </b>
+        Dikeluarkan di: '. $instansi['kota'] .' <br>
+        <u>Pada Tanggal: '. date("d-m-Y") .' </u><br>
+        a.n KEPALA <br>'. $instansi['pimpinan_tertinggi'] .' <br>
         <br><br><br><br><br><br>
-        <u><b>'. $instansi['nama_pimpinan_tertinggi'] .'</b></u><br>
-        <b>'. $instansi['jabatan_pimpinan_tertinggi'] .'</b> <br>
-        <b> NIP.'. $instansi['nip_pimpinan_tertinggi'] .'</b>
+        '. $instansi['nama_pimpinan_tertinggi'] .'<br>
+        '. $instansi['jabatan_pimpinan_tertinggi'] .'<br>
+        NIP.'. $instansi['nip_pimpinan_tertinggi'] .'
     </p>
 </div>
 ';

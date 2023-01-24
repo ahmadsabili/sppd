@@ -11,6 +11,12 @@
                     </a>
                 </li>
                 <?php if ($_SESSION['role'] == 'user') : ?>
+                <li class="nav-item <?= $_GET['page'] == 'nppd' ? 'active' : '' ?>">
+                    <a href="index.php?page=nppd">
+                        <i class="fas fa-envelope"></i>
+                        <p>NPPD</p>
+                    </a>
+                </li>
                 <li class="nav-item <?= $_GET['page'] == 'spt' ? 'active' : '' ?>">
                     <a href="index.php?page=spt">
                         <i class="fas fa-envelope"></i>

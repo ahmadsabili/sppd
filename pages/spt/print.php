@@ -10,7 +10,7 @@ require_once '../../config/timezone.php';
 $mpdf = new \Mpdf\Mpdf([
     'mode' => 'utf-8',
     'format' => 'A4',
-    'default_font' => 'times',
+    'default_font' => 'Arial',
     'default_font_size' => 11,
     'margin_left' => 15,
 ]);
@@ -37,6 +37,11 @@ $pegawai = mysqli_fetch_all($pegawai, MYSQLI_ASSOC);
 $instansi = mysqli_query($koneksi, "SELECT * FROM profil_instansi");
 $instansi = mysqli_fetch_assoc($instansi);
 
+if ($nppd['tanggal_pergi'] == $nppd['tanggal_pulang']) {
+    $tanggal = date('d-m-Y', strtotime($nppd['tanggal_pergi']));
+} else {
+    $tanggal = date('d-m-Y', strtotime($nppd['tanggal_pergi'])) . ' s/d ' . date('d-m-Y', strtotime($nppd['tanggal_pulang']));
+}
 
 // Write some HTML code:
 $html = '
@@ -45,59 +50,46 @@ $html = '
         <td style="width: 20%; text-align: center;">
             <img src="../../../assets/img/logo.png" style="width: 55px;">
         </td>
-        <td style="width: 55%; text-align: center;">
-            <p style="font-size: 14px">PEMERINTAH PROVINSI SUMATERA SELATAN</p>
-            <p style="font-size: 16px; font-weight: bold">' . $instansi['nama_instansi'] .'</p>
-            <p style="font-size: 12px">' . $instansi['alamat'] . '</p>
-            <p style="font-size: 12px">Telp. ' . $instansi['no_telp'] . ' Fax. ' . $instansi['fax'] . ' Kode Pos '. $instansi['kode_pos'] .' </p>
+        <td style="width: 70%; text-align: center;">
+            <p style="font-size: 16px">PEMERINTAH PROVINSI SUMATERA SELATAN</p>
+            <p style="font-size: 18px; font-weight: bold">' . $instansi['nama_instansi'] .'</p>
+            <p style="font-size: 12px; font-weight: bold">' . $instansi['alamat'] . '</p>
+            <p style="font-size: 12px">Telepon (0711) ' . $instansi['no_telp'] . ', No. Fax. (0711) ' . $instansi['fax'] . ' Kode Pos '. $instansi['kode_pos'] .' </p>
+            <p style="font-size: 12px">Email: <u>bpkad@sumselprov.go.id</u> &nbsp; Website: <u>www.sumselprov.go.id</u></p>
         </td>
         <td style="width: 10%;"></td>
     </tr>
 </table>
 
 <p style="text-align: center; font-size: 14px; margin-top: 10px">
-    <u>SURAT PERINTAH TUGAS</u> <br>
+    <u><b>SURAT PERINTAH TUGAS</b></u> <br>
     Nomor : ' . $spt['no_spt'] . '
 </p>
 <table>
     <tr>
-        <td width="25%">Menimbang</td>
+        <td width="30%">Yang Memberi Perintah</td>
         <td>:</td>
-        <td>Bahwa untuk kelancaran dalam '. $nppd['tujuan_perjalanan'] .';</td>
-    </tr>
-    <tr>
-        <td>Dasar</td>
-        <td>:</td>
-        <td>'. $spt['dasar_hukum'] .'</td>
+        <td>KEPALA BADAN PENGELOLA KEUANGAN DAN ASET DAERAH</td>
     </tr>
 </table>
-<p style="text-align: center; font-weight: bold">MEMERINTAHKAN</p>
+<br>
 <table>
 ';
 
 foreach ($pegawai as $p) {
     $html .= '<tr>
-        <td>'.$no++.'.</td>
-        <td>Nama</td>
-        <td style="padding-left: 10px">:</td>
-        <td>'.$p['nama'].'</td>
+        <td>Nama / NIP</td>
+        <td style="padding-left: 55px">:</td>
+        <td>'.$p['nama'].' / '. $p['nip']  .'</td>
     </tr>
     <tr>
-        <td></td>
-        <td>NIP</td>
-        <td style="padding-left: 10px;">:</td>
-        <td>'.$p['nip'].'</td>
+        <td>Pangkat / Jabatan</td>
+        <td style="padding-left: 55px;">:</td>
+        <td>'. $p['pangkat'] .' ('. $p['nama_golongan'] .') / '.$p['jabatan'].'</td>
     </tr>
     <tr>
-        <td></td>
-        <td>Pangkat / Golongan</td>
-        <td style="padding-left: 10px;">:</td>
-        <td>'. $p['pangkat'] .' / Golongan '.$p['nama_golongan'].'</td>
-    </tr>
-    <tr>
-        <td></td>
         <td>Jabatan</td>
-        <td style="padding-left: 10px;">:</td>
+        <td style="padding-left: 55px;">:</td>
         <td>'.$p['jabatan'].'</td>
     </tr>';
 }
@@ -107,24 +99,37 @@ $html .= '
 <br>
 <table>
     <tr>
-        <td>Untuk</td>
-        <td style="padding-left: 50px">:</td>
+        <td>Urusan</td>
+        <td style="padding-left: 55px">:</td>
         <td>'. $nppd['tujuan_perjalanan'] .'</td>
+    </tr>
+    <tr>
+        <td>Tujuan Perjalanan</td>
+        <td style="padding-left: 55px">:</td>
+        <td>'. $nppd['nama_kota'] .'</td>
+    </tr>
+    <tr>
+        <td>Lama / Tanggal</td>
+        <td  style="padding-left: 55px">:</td>
+        <td>'. $nppd['lama_perjalanan'] .' hari / '. $tanggal .'</td>
+    </tr>
+    <tr>
+        <td>Keterangan</td>
+        <td  style="padding-left: 55px">:</td>
+        <td> - </td>
     </tr>
 </table>
 <br>
-<div style="text-align: right">
+<div style="padding-left: 65%">
     <p>
-        DIKELUARKAN DI: '. $instansi['kota'] .' <br>
-        PADA TANGGAL: '. date("d-m-Y") .' <br>
-        <b>
-        a.n '. $instansi['pimpinan_tertinggi'] .' <br>
-        '. $instansi['nama_instansi'] .'
-        </b>
+        Dikeluarkan di: '. $instansi['kota'] .' <br>
+        Pada Tanggal: '. date("d-m-Y") .'<br>
+        <hr style="color: black; margin-top: 0; padding-top: 0">
+        a.n KEPALA<br>'. $instansi['pimpinan_tertinggi'] .' <br>
         <br><br><br><br><br><br>
-        <u><b>'. $instansi['nama_pimpinan_tertinggi'] .'</b></u><br>
-        <b>'. $instansi['jabatan_pimpinan_tertinggi'] .'</b> <br>
-        <b> NIP.'. $instansi['nip_pimpinan_tertinggi'] .'</b>
+        <u>'. $instansi['nama_pimpinan_tertinggi'] .'</u><br>
+        '. $instansi['jabatan_pimpinan_tertinggi'] .'<br>
+        NIP.'. $instansi['nip_pimpinan_tertinggi'] .'
     </p>
 </div>
 ';

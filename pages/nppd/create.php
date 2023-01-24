@@ -2,6 +2,8 @@
 $pegawai = mysqli_query($koneksi, "SELECT * FROM pegawai ORDER BY nama ASC");
 $kota = mysqli_query($koneksi, "SELECT * FROM kota");
 $kendaraan = mysqli_query($koneksi, "SELECT * FROM kendaraan");
+
+$pegawai_id = $_SESSION['pegawai_id'];
 ?>
 
 <div class="main-panel">
@@ -15,14 +17,15 @@ $kendaraan = mysqli_query($koneksi, "SELECT * FROM kendaraan");
                     <div class="card">
                         <div class="card-body">
                             <form action="controllers/nppd/store.php" method="POST">
-                                <div class="form-group">
+                                <input type="hidden" name="pegawai_id" value="<?= $pegawai_id ?>">
+                                <!-- <div class="form-group">
                                     <label for="pegawai">Pegawai</label>
                                     <select multiple class="form-control select2" id="pegawai" name="pegawai_id[]" required>
                                         <?php foreach ($pegawai as $p) : ?>
                                             <option value="<?= $p['id_pegawai'] ?>"><?= $p['nama'] ?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label for="lokasi_tujuan">Lokasi Tujuan</label>
                                     <select class="form-control select2" id="lokasi_tujuan" name="kota_id">

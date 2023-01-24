@@ -9,9 +9,8 @@ $tanggal_pulang = $_POST['tanggal_pulang'];
 $lama_perjalanan = $_POST['lama_perjalanan'];
 
 $pegawai_id = $_POST['pegawai_id'];
-$pegawai_string = implode(",", $pegawai_id);
 
-$sql = "INSERT INTO nppd (kota_id, tujuan_perjalanan, kendaraan_id, tanggal_pergi, tanggal_pulang, lama_perjalanan, pegawai_id) VALUES ('$kota_id', '$tujuan_perjalanan', '$kendaraan_id', '$tanggal_pergi', '$tanggal_pulang', '$lama_perjalanan', '$pegawai_string')";
+$sql = "INSERT INTO nppd (kota_id, tujuan_perjalanan, kendaraan_id, tanggal_pergi, tanggal_pulang, lama_perjalanan, pegawai_id) VALUES ('$kota_id', '$tujuan_perjalanan', '$kendaraan_id', '$tanggal_pergi', '$tanggal_pulang', '$lama_perjalanan', '$pegawai_id')";
 
 $query = mysqli_query($koneksi, $sql);
 

@@ -7,7 +7,7 @@ $id_nppd = $_GET['id_nppd'];
 $query = mysqli_query($koneksi, "SELECT * FROM nppd WHERE id_nppd = '$id_nppd'");
 $nppd = mysqli_fetch_assoc($query);
 
-$pegawai_id = explode(',', $nppd['pegawai_id']);
+$pegawai_id = $_SESSION['pegawai_id'];
 ?>
 
 <div class="main-panel">
@@ -22,7 +22,8 @@ $pegawai_id = explode(',', $nppd['pegawai_id']);
                         <div class="card-body">
                             <form action="controllers/nppd/update.php" method="POST">
                                 <input type="hidden" name="id_nppd" value="<?= $nppd['id_nppd']?>">
-                                <div class="form-group">
+                                <input type="hidden" name="pegawai_id" value="<?= $pegawai_id ?>">
+                                <!-- <div class="form-group">
                                     <label for="pegawai">Pegawai</label>
                                     <select multiple class="form-control select2" id="pegawai" name="pegawai_id[]" required>
                                         <?php foreach ($pegawai as $p) : ?>
@@ -38,7 +39,7 @@ $pegawai_id = explode(',', $nppd['pegawai_id']);
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label for="lokasi_tujuan">Lokasi Tujuan</label>
                                     <select class="form-control select2" id="lokasi_tujuan" name="kota_id">
